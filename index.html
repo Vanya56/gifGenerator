@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TV Show Buttons</title>
+  <style>
+      .card {
+      
+        float: right;
+      }
+      button {
+          color: darkblue;
+      }
+      body {
+        background-color: paleturquoise;
+      }
+      .container {
+    padding-top: 70px;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-bottom: 70px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class='container'>
+  <button data-tvShow="futurama">Futurama</button>
+  <button data-tvShow="rickMorty">Rick and Morty</button>
+  <button data-tvShow="duckTales">Duck Tales</button>
+  <button data-tvShow="theOffice">The Office</button>
+  <button data-tvShow="seinfeld">Seinfeld</button>
+  <div id="gifs-appear-here">
+  </div>
+  <div class="card">
+        <div class="card-header">
+          <strong>
+            <i class="addEmployees"></i> Add Gif</strong>
+        </div>
+        <div class="card-body">
+            <form role="form">
+                <div class="form-group">
+              
+              <input type="text" class="form-control" id="employee-name">
+            </div> 
+            <button type="submit" class="btn btn-default" id="run-search">
+                    <i class="btnSubmit"></i> Submit</button>
+                 
+    
+                </form>
+              </div>
+            </div>
+            </div>
+           
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  
+    $("button").on("click", function() {
+     var show = $(this).attr("data-tvShow");
+     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + show + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+      
+        .then(function(response) {
+          console.log(queryURL);
+          console.log(response);
+          var results = response.data;
+
+          for (var i = 0; i < results.length; i++) {
+            var showDiv = $("<div>");
+            var p = $("<p>").text("Rating: " + results[i].rating);
+            var characterImage = $("<img>");
+            
+            characterImage.attr("src", results[i].images.fixed_height.url);
+
+            showDiv.append(p);
+            showDiv.append(characterImage);
+
+            $("#gifs-appear-here").prepend(showDiv);
+          }
+        });
+    //     function updateState(state, ele) {
+    //   $(ele).attr("src", $(ele).attr("data-" + state));
+    //   $(ele).attr("data-state", state);
+    // }
+    // $(".gif").on("click", function () {
+    //   // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    //   var state = $(this).attr("data-state");
+    //   var dAnimate = $(this).attr("data-animate")
+    //   // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    //   // Then, set the image's data-state to animate
+    //   // Else set src to the data-still value
+    //   if (state === "still") {
+    //     updateState('animate', this);
+    //   } else {
+    //     updateState('still', this);
+    //   }
+    // });
+    });
+  </script>
+</body>
