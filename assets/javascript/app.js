@@ -24,7 +24,7 @@ $(document).ready(function () {
 
         var searchQ = $(this).data('topic');
         var limit = 10;
-        var apiKey = 'dc6zaTOxFJmzC';
+        var apiKey = 'RPaK9Z4sSu8wS60vAUOVtsfL2gAI98u0&limit=10';
         var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' +
             searchQ + '&api_key=' + apiKey + '&limit=' + limit;
 
